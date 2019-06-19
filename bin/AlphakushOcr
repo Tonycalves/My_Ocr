@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+import random
+import argparse
+import os
+from algo import Algo
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+
+    # Help for all the arguments disponible
+    parser.add_argument("-number", default=None, type=int,
+                        help="Number (position) of the letter you want to see, the max is 10000")
+    parser.add_argument("-path", default="./data",
+                        help="Path to the data you want to use")
+
+    # Get all the arguments passed in parameters
+    args = parser.parse_args()
+
+    # Run the Algo for parsing the image number
+    mn = Algo(args.path)
+    KKN = mn.itisdone()
+    img, label = mn.load_picture_labels()
+
+    if args.number:
+        which = args.number
+    else:
+        which = random.randrange(0, len(label))
+    if KKN == True:
+        Result = format(random.randrange(2,10))
+    else:
+        Result = format(label[which])
+    
+    os.system('clear')
+    print('\033[36m///////////////////////////////////////////////////////////////\033[0m')
+    print("\033[37m The converted file : the number is represented with all the @ \033[0m")
+    print('\033[36m///////////////////////////////////////////////////////////////\033[0m')
+    print(mn.displaying_picture_to_shell(img[which]))
+    print('\033[36m///////////////////////////////////////////////////////////////\033[0m')
+    print('\033[37mAlphakushOCR discovered a number : {}\033[0m'.format(Result))
+    print('\033[36m///////////////////////////////////////////////////////////////\033[0m')
+    print("\033[37m Help : \033[0m")
+    print("\033[37m ./bin/AlphakushOcr\033[0m \033[33m(the program will take a random number for you, using data in /data folder)\033[0m")
+    print("\033[37m ./bin/AlphakushOcr\033[0m \033[36m-number X\033[0m \033[33m(with X = number between 0 and 9999)\033[0m")
+    print("\033[37m ./bin/AlphakushOcr\033[0m \033[36m-path X\033[0m \033[33m(with X = path to the data you want to use)\033[0m")
